@@ -1,35 +1,63 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-900">
-    <div class="login bg-gray-700 p-8 rounded shadow-md w-full max-w-sm">
-      <h1 class="text-2xl font-bold text-emerald-500 mb-3 text-center">Djeto Vi</h1>
-      <form @submit.prevent="login">
-        <div class="flex mb-4 bg-blue-400 border-2 border-blue-400 rounded-xl items-center">
-          <label for="username" class="block m-2">Username:</label>
-          <input
-            type="text"
-            id="username"
-            v-model="username"
-            required
-            class="w-full m-1 p-1 bg-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
-        <div class="mb-6">
-          <label for="password" class="block text-white mb-2">Password:</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            required
-            class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-        >
-          Login
-        </button>
-      </form>
+  <div class="h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    <div class="flex flex-col items-center justify-center h-full">
+      <div class="bg-white/80 p-5 h-3/4 w-1/3 rounded">
+        <h1 class="block text-3xl mb-2 text-center">Connexion</h1>
+        <form class="my-8 px-3">
+          <label for="email" class="block mb-2">Email:</label>
+          <div
+            class="flex pb-2 px-2 mb-4 items-center gap-3 border-b-2 border-sky-200 transition-all duration-200 ease-in-out"
+            :class="[emailFocused ? 'border-sky-500 scale-[1.01]' : 'border-sky-200 scale-100']"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'at']"
+              :class="[emailFocused ? 'text-sky-500' : 'text-gray-400']"
+            />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Entrez votre mail."
+              required
+              class="block bg-transparent outline-none focus:outline-none w-full"
+              :class="[emailFocused ? 'text-sky-500' : 'text-gray-400']"
+              @focus="emailFocused = true"
+              @blur="emailFocused = false"
+            />
+          </div>
+          <label for="password" class="block mb-2">Mot de passe:</label>
+          <div
+            class="flex pb-2 mb-4 items-center gap-3 border-b-2 border-sky-200"
+            :class="[passwordFocused ? 'border-sky-500' : 'border-sky-200']"
+          >
+            <font-awesome-icon
+              :icon="['fas', showPassword ? 'unlock' : 'lock']"
+              id="password-icon"
+              :class="[passwordFocused ? 'text-sky-500' : 'text-gray-400']"
+              @click="showPassword = !showPassword"
+            />
+            <input
+              :type="showPassword ? 'text' : 'password'"
+              name="password"
+              id="password"
+              placeholder="Entrez votre mot de passe."
+              required
+              class="block outline-none focus:outline-none w-full"
+              :class="[passwordFocused ? 'text-sky-500' : 'text-gray-400']"
+              @focus="passwordFocused = true"
+              @blur="passwordFocused = false"
+            />
+          </div>
+          <button
+            type="submit"
+            @click.prevent="login"
+            class="mt-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-1 w-full focus:p-2 hover:p-2"
+          >
+            <font-awesome-icon :icon="['fas', 'arrow-right-to-bracket']" />
+            Se connecter
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -37,11 +65,26 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 const router = useRouter()
-const username = ref('')
-const password = ref('')
-
+// const username = ref('')
+// const password = ref('')
+const emailFocused = ref(false)
+const passwordFocused = ref(false)
+const showPassword = ref(false)
+const togglePasswordVisibility = async () => {
+  const passwordInput = document.getElementById('password')
+  const passwordIcon = document.getElementById('password-icon')
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text'
+    passwordIcon.classList.remove('fas-lock')
+    passwordIcon.classList.add('fas-unlock')
+  } else {
+    passwordInput.type = 'password'
+    passwordIcon.classList.remove('fas-unlock')
+    passwordIcon.classList.add('fas-lock')
+  }
+}
 const login = async () => {
   router.push('/home')
 }
