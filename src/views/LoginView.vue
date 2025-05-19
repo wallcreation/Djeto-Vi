@@ -19,6 +19,7 @@
               id="email"
               placeholder="Entrez votre mail."
               required
+              v-model="email"
               class="block bg-transparent outline-none focus:outline-none w-full"
               :class="[emailFocused ? 'text-sky-500' : 'text-gray-400']"
               @focus="emailFocused = true"
@@ -42,6 +43,7 @@
               id="password"
               placeholder="Entrez votre mot de passe."
               required
+              v-model="password"
               class="block outline-none focus:outline-none w-full"
               :class="[passwordFocused ? 'text-sky-500' : 'text-gray-400']"
               @focus="passwordFocused = true"
@@ -57,6 +59,14 @@
             Se connecter
           </button>
         </form>
+        <div
+          id="error"
+          v-if="loginError"
+          class="flex items-center justify-center gap-2 border-2 border-red-500 rounded-lg text-red-500 px-10 mx-10"
+        >
+          <font-awesome-icon :icon="['fas', 'triangle-exclamation']" />
+          <p>Indentifians incorrect</p>
+        </div>
       </div>
     </div>
   </div>
@@ -66,26 +76,35 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
 const router = useRouter()
-// const username = ref('')
-// const password = ref('')
+const email = ref('')
+const password = ref('')
 const emailFocused = ref(false)
 const passwordFocused = ref(false)
 const showPassword = ref(false)
-const togglePasswordVisibility = async () => {
-  const passwordInput = document.getElementById('password')
-  const passwordIcon = document.getElementById('password-icon')
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text'
-    passwordIcon.classList.remove('fas-lock')
-    passwordIcon.classList.add('fas-unlock')
-  } else {
-    passwordInput.type = 'password'
-    passwordIcon.classList.remove('fas-unlock')
-    passwordIcon.classList.add('fas-lock')
-  }
-}
+const loginError = ref(false)
+
 const login = async () => {
-  router.push('/home')
+  if (!email.value || !password.value) {
+    alert('Veuillez remplir tous les champs.')
+    return
+  }
+  try {
+    const response = await axios.post('http://localhost:8000/login', {
+      email: email.value,
+      password: password.value,
+    })
+    if (!response.data.status) {
+      loginError.value = true
+      return
+    }
+    const token = response.data.token
+    localStorage.setItem('session_token', token)
+    router.push('/home')
+  } catch (error) {
+    console.error('Erreur lors de la connexion:', error)
+    loginError.value = true
+  }
 }
 </script>
