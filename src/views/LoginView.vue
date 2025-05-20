@@ -95,13 +95,21 @@ const login = async () => {
       email: email.value,
       password: password.value,
     })
+    console.log('Réponse de la requête:', response.data)
+    console.log("Role de l'utilisateur:", response.data.profile.role)
     if (!response.data.status) {
       loginError.value = true
       return
     }
     const token = response.data.token
     localStorage.setItem('session_token', token)
-    router.push('/home')
+    localStorage.setItem('profile', JSON.stringify(response.data.profile))
+    if (response.data.profile.role === 'admin') {
+      router.push('/admin')
+    }
+    if (response.data.profile.role === 'operator') {
+      router.push('/operator')
+    }
   } catch (error) {
     console.error('Erreur lors de la connexion:', error)
     loginError.value = true
