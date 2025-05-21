@@ -1,8 +1,10 @@
+<script setup>
+
+</script>
+
 <template>
-  <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center z-20">
-    <h1 class="text-xl font-bold text-gray-800">Admin Dashboard</h1>
-    <div >
-        
+  <header class="h-16 bg-white shadow  flex items-center lg:justify-end justify-between px-4">
+    <button @click="$emit('toggle-sidebar')" class="text-gray-800 lg:hidden   text-2xl">☰</button>
       <router-link to="/login">
           <button class="text-gray-600 flex gap-1.5 cursor-pointer hover:text-gray-800" >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -11,6 +13,7 @@
             Déconnexion
               </button>
       </router-link>
-    </div>
   </header>
 </template>
+
+

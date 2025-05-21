@@ -1,26 +1,32 @@
 <script setup>
-import AdminHeader from '@/components/Admin/AdminHeader.vue'
-import AdminSidebar from '@/components/Admin/AdminSidebar.vue'
-import AdminFooter from '@/components/Admin/AdminFooter.vue'
+import { ref } from 'vue'
+import Header from '@/components/Admin/AdminHeader.vue'
+import Sidebar from '@/components/Admin/AdminSidebar.vue'
+import Footer from '@/components/Admin/AdminFooter.vue'
+
+const isSidebarOpen = ref(false) // fermé par défaut pour mobile
 </script>
 
+
 <template>
-  <div class="min-h-screen flex flex-col">
-    <!-- Header -->
-    <AdminHeader />
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar visible en permanence en desktop, toggle en mobile -->
+    <Sidebar :sidebarOpen="isSidebarOpen" @toggle-sidebarclose="isSidebarOpen = false" />
 
-    <div class="flex flex-1">
-      <!-- Sidebar -->
-      <AdminSidebar />
+    <!-- Main -->
+    <div class="flex-1 flex flex-col">
+      <!-- Header -->
+      <Header @toggle-sidebar="isSidebarOpen = true" />
 
-      <!-- Main Content -->
-      <main class="flex-1 ml-0 md:ml-64 p-6 bg-gray-100 min-h-[calc(100vh-128px)]">
-        <h2 class="text-2xl font-semibold mb-4">Bienvenue sur le tableau de bord</h2>
-        <p class="text-gray-700">c'est là où on va tout ajouter </p>
+      <!-- Contenu principal -->
+      <main class="flex-1 p-4 overflow-auto bg-gray-100">
+        <h1 class="text-2xl font-bold">Bienvenue dans votre dashboard !</h1>
+        <p class="mt-2 text-gray-600">Voici votre zone de travail...</p>
       </main>
-    </div>
 
-    <!-- Footer -->
-    <AdminFooter />
+      <!-- Footer -->
+      <Footer />
+    </div>
   </div>
 </template>
+
