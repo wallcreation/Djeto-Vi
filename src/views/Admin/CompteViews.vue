@@ -91,96 +91,6 @@ const comptes = ref([
     "jour": "SOIR",
     "equipe": "Alpha",
     "password": "ines667"
-  },
-  {
-    "id": 11,
-    "nom": "Boko",
-    "prenom": "Pascal",
-    "telephone": "+229012289977",
-    "jour": "MATIN",
-    "equipe": "Bravo",
-    "password": "pascal22"
-  },
-  {
-    "id": 12,
-    "nom": "Kouassi",
-    "prenom": "Estelle",
-    "telephone": "+229018899665",
-    "jour": "SOIR",
-    "equipe": "Charlie",
-    "password": "estelle99"
-  },
-  {
-    "id": 13,
-    "nom": "Hounkpatin",
-    "prenom": "Joël",
-    "telephone": "+229017766554",
-    "jour": "MATIN",
-    "equipe": "Alpha",
-    "password": "joel765"
-  },
-  {
-    "id": 14,
-    "nom": "Azon",
-    "prenom": "Léa",
-    "telephone": "+229019900112",
-    "jour": "SOIR",
-    "equipe": "Bravo",
-    "password": "lea112"
-  },
-  {
-    "id": 15,
-    "nom": "Alagbada",
-    "prenom": "Michel",
-    "telephone": "+229015556677",
-    "jour": "MATIN",
-    "equipe": "Charlie",
-    "password": "michel55"
-  },
-  {
-    "id": 16,
-    "nom": "Tchokou",
-    "prenom": "Sarah",
-    "telephone": "+229012233445",
-    "jour": "SOIR",
-    "equipe": "Alpha",
-    "password": "sarah22"
-  },
-  {
-    "id": 17,
-    "nom": "Gnacadja",
-    "prenom": "Julien",
-    "telephone": "+229017788990",
-    "jour": "MATIN",
-    "equipe": "Bravo",
-    "password": "julien88"
-  },
-  {
-    "id": 18,
-    "nom": "Kougbé",
-    "prenom": "Fanny",
-    "telephone": "+229016644332",
-    "jour": "SOIR",
-    "equipe": "Charlie",
-    "password": "fanny66"
-  },
-  {
-    "id": 19,
-    "nom": "Deguenon",
-    "prenom": "Brice",
-    "telephone": "+229019977665",
-    "jour": "MATIN",
-    "equipe": "Alpha",
-    "password": "brice97"
-  },
-  {
-    "id": 20,
-    "nom": "Chabi",
-    "prenom": "Valérie",
-    "telephone": "+229014422110",
-    "jour": "SOIR",
-    "equipe": "Bravo",
-    "password": "valerie44"
   }
 ]
 )
@@ -293,7 +203,6 @@ function closeDetailsModal() {
   showDetailsModal.value = false
   selectedCompte.value = null
 }
-
 
 </script>
 
